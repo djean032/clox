@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 int main(int argc, const char *argv[]) {
+  (void)argc;
+  (void)argv;
 
   Chunk chunk;
   initChunk(&chunk);

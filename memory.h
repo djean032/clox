@@ -61,7 +61,7 @@ void arenaDestroy(Arena *arena);
 void *arenaAlloc(Arena *arena, size_t size, size_t alignment);
 void *arenaAllocZero(Arena *arena, size_t size, size_t alignment);
 bool arenaAllocSpan(Arena *arena, size_t size, size_t alignment,
-                     MemorySpan *out);
+                    MemorySpan *out);
 size_t arenaMark(const Arena *arena);
 size_t arenaUsed(const Arena *arena);
 size_t arenaRemaining(const Arena *arena);
@@ -99,11 +99,11 @@ typedef struct Heap {
 } Heap;
 
 bool heapInit(Heap *heap, MemorySpan span);
-void heapDestroy(Heap *heap, void *ptr);
+void heapDestroy(Heap *heap);
 void *heapAlloc(Heap *heap, size_t size);
 void heapFree(Heap *heap, void *ptr);
-void *heapRealloc(Heap *heap, void *ptr, size_t oldSize, size_t newSize);
-bool heapOwnsPointer(const Heap *heap);
+void *heapRealloc(Heap *heap, void *ptr, size_t newSize);
+bool heapOwnsPointer(const Heap *heap, const void *ptr);
 void heapGetStats(const Heap *heap, HeapStats *out);
 void heapDump(const Heap *heap);
 void heapDumpFreeLists(const Heap *heap);
@@ -112,6 +112,7 @@ bool heapValidate(const Heap *heap);
 // Slabs
 
 typedef struct Slab Slab;
+typedef struct SlabPageChunk SlabPageChunk;
 
 typedef struct SlabClass {
   size_t slotSize;
@@ -142,6 +143,7 @@ typedef struct SlabStats {
 typedef struct SlabAllocator {
   Heap *heap;
 
+  SlabPageChunk *chunks;
   SlabClass classes[SLAB_CLASS_COUNT];
 
   size_t allocationCount;
@@ -158,5 +160,5 @@ void *slabRealloc(SlabAllocator *slabs, void *ptr, size_t oldSize,
 bool slabOwnsPointer(const SlabAllocator *slabs, const void *ptr);
 void slabGetStats(const SlabAllocator *slabs, SlabStats *out);
 void slabDump(const SlabAllocator *slabs);
-void slabValidate(const SlabAllocator *slabs);
+bool slabValidate(const SlabAllocator *slabs);
 #endif // !clox_memory_h

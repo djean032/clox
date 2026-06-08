@@ -2,15 +2,14 @@
 #define clox_chunk_h
 
 #include "common.h"
-#include "value.h"
 #include "lines.h"
+#include "value.h"
 #include <stdint.h>
 
 typedef enum {
   OP_CONSTANT,
   OP_RETURN,
 } OpCode;
-
 
 typedef struct {
   size_t count;

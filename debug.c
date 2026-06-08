@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-#include "debug.h"
 #include "chunk.h"
+#include "debug.h"
 #include "lines.h"
 #include "value.h"
 
 void disassembleChunk(Chunk *chunk, const char *name) {
   printf("== %s ==\n", name);
 
-  for (int offset = 0; offset < chunk->count;) {
+  for (int offset = 0; offset < (int)chunk->count;) {
     offset = disassembleInstruction(chunk, offset);
   }
 }
 
-static int constantInstruction(const char* name, Chunk* chunk, size_t offset) {
+static int constantInstruction(const char *name, Chunk *chunk, size_t offset) {
   uint8_t constant = chunk->code[offset + 1];
   printf("%-16s %4d '", name, constant);
   printValue(chunk->constants.values[constant]);

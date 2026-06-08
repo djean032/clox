@@ -51,6 +51,10 @@
 #define SLAB_MAX_ALLOC_SIZE 512
 #endif
 
+#ifndef SLAB_CHUNK_PAGE_COUNT
+#define SLAB_CHUNK_PAGE_COUNT 16
+#endif
+
 /*
  * Debugging.
  */

@@ -10,9 +10,8 @@ typedef struct {
   int *offset;
 } LineData;
 
-void initLineData(LineData* array);
-void writeLineData(LineData* array, int line, int offset);
-void freeLineData(LineData* array);
-
+void initLineData(LineData *array);
+void writeLineData(LineData *array, int line, int offset);
+void freeLineData(LineData *array);
 
 #endif // !clox_lines_h

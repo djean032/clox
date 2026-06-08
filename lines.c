@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "memory.h"
 #include "lines.h"
+#include "memory.h"
 
 void initLineData(LineData *array) {
   array->count = 0;
